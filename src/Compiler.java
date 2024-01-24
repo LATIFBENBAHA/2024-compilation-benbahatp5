@@ -1,6 +1,6 @@
-import lParser.parser.*;
-import lParser.lexer.*;
-import lParser.node.*;
+import postfix.parser.*;
+import postfix.lexer.*;
+import postfix.node.*;
 import java.io.*;
 import sc.*;
 import sa.*;
@@ -31,8 +31,10 @@ public class Compiler
 		processCommandLine(args);
 		System.out.println("[BUILD SC] ");
 		buildSc();
-		/*		System.out.println("[BUILD SA] ");
+		/*
+		System.out.println("[BUILD SA] ");
 		buildSa();
+
 		System.out.println("[BUILD TS] ");
 		buildTs();
 		System.out.println("[TYPE CHECKING]");

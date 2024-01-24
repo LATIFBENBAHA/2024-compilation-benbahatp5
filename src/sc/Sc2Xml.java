@@ -1,7 +1,8 @@
 package sc;
 import java.io.*;
-import lParser.analysis.*;
-import lParser.node.*;
+import postfix.analysis.*;
+import postfix.node.*;
+import postfix.analysis.DepthFirstAdapter;
 
 public class Sc2Xml extends DepthFirstAdapter
 {

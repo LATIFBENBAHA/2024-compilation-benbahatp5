@@ -1,6 +1,7 @@
 package sa;
-import lParser.analysis.*;
-import lParser.node.*;
+import postfix.analysis.*;
+import postfix.node.*;
+import postfix.analysis.DepthFirstAdapter;
 import util.Type;
 
 public class Sc2sa extends DepthFirstAdapter

@@ -33,6 +33,13 @@ public class ColorGraph {
 		color[v] = NOCOLOR;
 	}
     }
+	public void affiche() {
+		System.out.println("Colors:");
+		for (int v = 0; v < vertexNb; v++) {
+			System.out.println("Node " + v + ": " + color[v]);
+		}
+	}
+
 
 
 }

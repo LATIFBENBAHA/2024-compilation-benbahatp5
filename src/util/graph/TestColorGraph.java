@@ -71,7 +71,7 @@ public class TestColorGraph
 	g.show(System.out);
 	int[] colors = new int[]{ -3,-3,-3,0,-3,2,1,-3,-3,-3};
 	ColorGraph cg = new ColorGraph(g, 3, colors);
-	cg.color();
+	//cg.color();
 	cg.affiche();
     }
 }
