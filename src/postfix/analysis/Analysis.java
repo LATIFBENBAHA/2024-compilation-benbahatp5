@@ -36,10 +36,6 @@ public interface Analysis extends Switch
     void caseAAppelfoncF(AAppelfoncF node);
     void caseALireF(ALireF node);
     void caseAAppelfonctionAppelfonc(AAppelfonctionAppelfonc node);
-    void caseAListedeexpressionListeexp(AListedeexpressionListeexp node);
-    void caseAListeexp(AListeexp node);
-    void caseARestelistedeexpressionListeexpbis(ARestelistedeexpressionListeexpbis node);
-    void caseAListeexpbis(AListeexpbis node);
     void caseAAfectInstr(AAfectInstr node);
     void caseATantqueInstr(ATantqueInstr node);
     void caseAFoncInstr(AFoncInstr node);
@@ -52,6 +48,10 @@ public interface Analysis extends Switch
     void caseAElsebranchElsebranch(AElsebranchElsebranch node);
     void caseAListdeinstrListeinstr(AListdeinstrListeinstr node);
     void caseAListeinstr(AListeinstr node);
+    void caseAListedeexpressionListeexp(AListedeexpressionListeexp node);
+    void caseAListeexp(AListeexp node);
+    void caseARestelistedeexpressionListeexpbis(ARestelistedeexpressionListeexpbis node);
+    void caseAListeexpbis(AListeexpbis node);
     void caseAIdentifVar(AIdentifVar node);
     void caseAVarindexeeVar(AVarindexeeVar node);
     void caseADeclarationvarDecvar(ADeclarationvarDecvar node);

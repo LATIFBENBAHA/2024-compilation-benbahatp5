@@ -219,30 +219,6 @@ public class AnalysisAdapter implements Analysis
     }
 
     @Override
-    public void caseAListedeexpressionListeexp(AListedeexpressionListeexp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAListeexp(AListeexp node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseARestelistedeexpressionListeexpbis(ARestelistedeexpressionListeexpbis node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
-    public void caseAListeexpbis(AListeexpbis node)
-    {
-        defaultCase(node);
-    }
-
-    @Override
     public void caseAAfectInstr(AAfectInstr node)
     {
         defaultCase(node);
@@ -310,6 +286,30 @@ public class AnalysisAdapter implements Analysis
 
     @Override
     public void caseAListeinstr(AListeinstr node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAListedeexpressionListeexp(AListedeexpressionListeexp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAListeexp(AListeexp node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseARestelistedeexpressionListeexpbis(ARestelistedeexpressionListeexpbis node)
+    {
+        defaultCase(node);
+    }
+
+    @Override
+    public void caseAListeexpbis(AListeexpbis node)
     {
         defaultCase(node);
     }
