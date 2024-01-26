@@ -8,7 +8,7 @@ import postfix.analysis.*;
 public final class ANonN extends PN
 {
     private TNon _non_;
-    private PF _f_;
+    private PN _n_;
 
     public ANonN()
     {
@@ -17,12 +17,12 @@ public final class ANonN extends PN
 
     public ANonN(
         @SuppressWarnings("hiding") TNon _non_,
-        @SuppressWarnings("hiding") PF _f_)
+        @SuppressWarnings("hiding") PN _n_)
     {
         // Constructor
         setNon(_non_);
 
-        setF(_f_);
+        setN(_n_);
 
     }
 
@@ -31,7 +31,7 @@ public final class ANonN extends PN
     {
         return new ANonN(
             cloneNode(this._non_),
-            cloneNode(this._f_));
+            cloneNode(this._n_));
     }
 
     @Override
@@ -65,16 +65,16 @@ public final class ANonN extends PN
         this._non_ = node;
     }
 
-    public PF getF()
+    public PN getN()
     {
-        return this._f_;
+        return this._n_;
     }
 
-    public void setF(PF node)
+    public void setN(PN node)
     {
-        if(this._f_ != null)
+        if(this._n_ != null)
         {
-            this._f_.parent(null);
+            this._n_.parent(null);
         }
 
         if(node != null)
@@ -87,7 +87,7 @@ public final class ANonN extends PN
             node.parent(this);
         }
 
-        this._f_ = node;
+        this._n_ = node;
     }
 
     @Override
@@ -95,7 +95,7 @@ public final class ANonN extends PN
     {
         return ""
             + toString(this._non_)
-            + toString(this._f_);
+            + toString(this._n_);
     }
 
     @Override
@@ -108,9 +108,9 @@ public final class ANonN extends PN
             return;
         }
 
-        if(this._f_ == child)
+        if(this._n_ == child)
         {
-            this._f_ = null;
+            this._n_ = null;
             return;
         }
 
@@ -127,9 +127,9 @@ public final class ANonN extends PN
             return;
         }
 
-        if(this._f_ == oldChild)
+        if(this._n_ == oldChild)
         {
-            setF((PF) newChild);
+            setN((PN) newChild);
             return;
         }
 

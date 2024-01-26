@@ -7,9 +7,9 @@ import postfix.analysis.*;
 @SuppressWarnings("nls")
 public final class ALessE extends PE
 {
-    private PP _p_;
-    private TLess _less_;
     private PE _e_;
+    private TLess _less_;
+    private PP _p_;
 
     public ALessE()
     {
@@ -17,16 +17,16 @@ public final class ALessE extends PE
     }
 
     public ALessE(
-        @SuppressWarnings("hiding") PP _p_,
+        @SuppressWarnings("hiding") PE _e_,
         @SuppressWarnings("hiding") TLess _less_,
-        @SuppressWarnings("hiding") PE _e_)
+        @SuppressWarnings("hiding") PP _p_)
     {
         // Constructor
-        setP(_p_);
+        setE(_e_);
 
         setLess(_less_);
 
-        setE(_e_);
+        setP(_p_);
 
     }
 
@@ -34,65 +34,15 @@ public final class ALessE extends PE
     public Object clone()
     {
         return new ALessE(
-            cloneNode(this._p_),
+            cloneNode(this._e_),
             cloneNode(this._less_),
-            cloneNode(this._e_));
+            cloneNode(this._p_));
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseALessE(this);
-    }
-
-    public PP getP()
-    {
-        return this._p_;
-    }
-
-    public void setP(PP node)
-    {
-        if(this._p_ != null)
-        {
-            this._p_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._p_ = node;
-    }
-
-    public TLess getLess()
-    {
-        return this._less_;
-    }
-
-    public void setLess(TLess node)
-    {
-        if(this._less_ != null)
-        {
-            this._less_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._less_ = node;
     }
 
     public PE getE()
@@ -120,22 +70,72 @@ public final class ALessE extends PE
         this._e_ = node;
     }
 
+    public TLess getLess()
+    {
+        return this._less_;
+    }
+
+    public void setLess(TLess node)
+    {
+        if(this._less_ != null)
+        {
+            this._less_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._less_ = node;
+    }
+
+    public PP getP()
+    {
+        return this._p_;
+    }
+
+    public void setP(PP node)
+    {
+        if(this._p_ != null)
+        {
+            this._p_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._p_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
-            + toString(this._p_)
+            + toString(this._e_)
             + toString(this._less_)
-            + toString(this._e_);
+            + toString(this._p_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._p_ == child)
+        if(this._e_ == child)
         {
-            this._p_ = null;
+            this._e_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class ALessE extends PE
             return;
         }
 
-        if(this._e_ == child)
+        if(this._p_ == child)
         {
-            this._e_ = null;
+            this._p_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class ALessE extends PE
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._p_ == oldChild)
+        if(this._e_ == oldChild)
         {
-            setP((PP) newChild);
+            setE((PE) newChild);
             return;
         }
 
@@ -170,9 +170,9 @@ public final class ALessE extends PE
             return;
         }
 
-        if(this._e_ == oldChild)
+        if(this._p_ == oldChild)
         {
-            setE((PE) newChild);
+            setP((PP) newChild);
             return;
         }
 

@@ -7,9 +7,9 @@ import postfix.analysis.*;
 @SuppressWarnings("nls")
 public final class ADivM extends PM
 {
-    private PN _n_;
-    private TDiv _div_;
     private PM _m_;
+    private TDiv _div_;
+    private PN _n_;
 
     public ADivM()
     {
@@ -17,16 +17,16 @@ public final class ADivM extends PM
     }
 
     public ADivM(
-        @SuppressWarnings("hiding") PN _n_,
+        @SuppressWarnings("hiding") PM _m_,
         @SuppressWarnings("hiding") TDiv _div_,
-        @SuppressWarnings("hiding") PM _m_)
+        @SuppressWarnings("hiding") PN _n_)
     {
         // Constructor
-        setN(_n_);
+        setM(_m_);
 
         setDiv(_div_);
 
-        setM(_m_);
+        setN(_n_);
 
     }
 
@@ -34,65 +34,15 @@ public final class ADivM extends PM
     public Object clone()
     {
         return new ADivM(
-            cloneNode(this._n_),
+            cloneNode(this._m_),
             cloneNode(this._div_),
-            cloneNode(this._m_));
+            cloneNode(this._n_));
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseADivM(this);
-    }
-
-    public PN getN()
-    {
-        return this._n_;
-    }
-
-    public void setN(PN node)
-    {
-        if(this._n_ != null)
-        {
-            this._n_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._n_ = node;
-    }
-
-    public TDiv getDiv()
-    {
-        return this._div_;
-    }
-
-    public void setDiv(TDiv node)
-    {
-        if(this._div_ != null)
-        {
-            this._div_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._div_ = node;
     }
 
     public PM getM()
@@ -120,22 +70,72 @@ public final class ADivM extends PM
         this._m_ = node;
     }
 
+    public TDiv getDiv()
+    {
+        return this._div_;
+    }
+
+    public void setDiv(TDiv node)
+    {
+        if(this._div_ != null)
+        {
+            this._div_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._div_ = node;
+    }
+
+    public PN getN()
+    {
+        return this._n_;
+    }
+
+    public void setN(PN node)
+    {
+        if(this._n_ != null)
+        {
+            this._n_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._n_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
-            + toString(this._n_)
+            + toString(this._m_)
             + toString(this._div_)
-            + toString(this._m_);
+            + toString(this._n_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._n_ == child)
+        if(this._m_ == child)
         {
-            this._n_ = null;
+            this._m_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class ADivM extends PM
             return;
         }
 
-        if(this._m_ == child)
+        if(this._n_ == child)
         {
-            this._m_ = null;
+            this._n_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class ADivM extends PM
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._n_ == oldChild)
+        if(this._m_ == oldChild)
         {
-            setN((PN) newChild);
+            setM((PM) newChild);
             return;
         }
 
@@ -170,9 +170,9 @@ public final class ADivM extends PM
             return;
         }
 
-        if(this._m_ == oldChild)
+        if(this._n_ == oldChild)
         {
-            setM((PM) newChild);
+            setN((PN) newChild);
             return;
         }
 

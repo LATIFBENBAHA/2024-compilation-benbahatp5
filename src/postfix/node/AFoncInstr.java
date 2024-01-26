@@ -11,6 +11,7 @@ public final class AFoncInstr extends PInstr
     private TLPar _lPar_;
     private PListeexp _listeexp_;
     private TRPar _rPar_;
+    private TPointVirgule _pointVirgule_;
 
     public AFoncInstr()
     {
@@ -21,7 +22,8 @@ public final class AFoncInstr extends PInstr
         @SuppressWarnings("hiding") TIdentif _identif_,
         @SuppressWarnings("hiding") TLPar _lPar_,
         @SuppressWarnings("hiding") PListeexp _listeexp_,
-        @SuppressWarnings("hiding") TRPar _rPar_)
+        @SuppressWarnings("hiding") TRPar _rPar_,
+        @SuppressWarnings("hiding") TPointVirgule _pointVirgule_)
     {
         // Constructor
         setIdentif(_identif_);
@@ -32,6 +34,8 @@ public final class AFoncInstr extends PInstr
 
         setRPar(_rPar_);
 
+        setPointVirgule(_pointVirgule_);
+
     }
 
     @Override
@@ -41,7 +45,8 @@ public final class AFoncInstr extends PInstr
             cloneNode(this._identif_),
             cloneNode(this._lPar_),
             cloneNode(this._listeexp_),
-            cloneNode(this._rPar_));
+            cloneNode(this._rPar_),
+            cloneNode(this._pointVirgule_));
     }
 
     @Override
@@ -150,6 +155,31 @@ public final class AFoncInstr extends PInstr
         this._rPar_ = node;
     }
 
+    public TPointVirgule getPointVirgule()
+    {
+        return this._pointVirgule_;
+    }
+
+    public void setPointVirgule(TPointVirgule node)
+    {
+        if(this._pointVirgule_ != null)
+        {
+            this._pointVirgule_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._pointVirgule_ = node;
+    }
+
     @Override
     public String toString()
     {
@@ -157,7 +187,8 @@ public final class AFoncInstr extends PInstr
             + toString(this._identif_)
             + toString(this._lPar_)
             + toString(this._listeexp_)
-            + toString(this._rPar_);
+            + toString(this._rPar_)
+            + toString(this._pointVirgule_);
     }
 
     @Override
@@ -185,6 +216,12 @@ public final class AFoncInstr extends PInstr
         if(this._rPar_ == child)
         {
             this._rPar_ = null;
+            return;
+        }
+
+        if(this._pointVirgule_ == child)
+        {
+            this._pointVirgule_ = null;
             return;
         }
 
@@ -216,6 +253,12 @@ public final class AFoncInstr extends PInstr
         if(this._rPar_ == oldChild)
         {
             setRPar((TRPar) newChild);
+            return;
+        }
+
+        if(this._pointVirgule_ == oldChild)
+        {
+            setPointVirgule((TPointVirgule) newChild);
             return;
         }
 

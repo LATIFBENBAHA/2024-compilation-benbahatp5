@@ -7,14 +7,14 @@ import postfix.analysis.*;
 @SuppressWarnings("nls")
 public final class TEntier extends Token
 {
-    public TEntier(String text)
+    public TEntier()
     {
-        setText(text);
+        super.setText("entier");
     }
 
-    public TEntier(String text, int line, int pos)
+    public TEntier(int line, int pos)
     {
-        setText(text);
+        super.setText("entier");
         setLine(line);
         setPos(pos);
     }
@@ -22,12 +22,18 @@ public final class TEntier extends Token
     @Override
     public Object clone()
     {
-      return new TEntier(getText(), getLine(), getPos());
+      return new TEntier(getLine(), getPos());
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseTEntier(this);
+    }
+
+    @Override
+    public void setText(@SuppressWarnings("unused") String text)
+    {
+        throw new RuntimeException("Cannot change TEntier text.");
     }
 }

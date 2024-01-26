@@ -7,9 +7,9 @@ import postfix.analysis.*;
 @SuppressWarnings("nls")
 public final class AEqualE extends PE
 {
-    private PP _p_;
-    private TEqual _equal_;
     private PE _e_;
+    private TEqual _equal_;
+    private PP _p_;
 
     public AEqualE()
     {
@@ -17,16 +17,16 @@ public final class AEqualE extends PE
     }
 
     public AEqualE(
-        @SuppressWarnings("hiding") PP _p_,
+        @SuppressWarnings("hiding") PE _e_,
         @SuppressWarnings("hiding") TEqual _equal_,
-        @SuppressWarnings("hiding") PE _e_)
+        @SuppressWarnings("hiding") PP _p_)
     {
         // Constructor
-        setP(_p_);
+        setE(_e_);
 
         setEqual(_equal_);
 
-        setE(_e_);
+        setP(_p_);
 
     }
 
@@ -34,65 +34,15 @@ public final class AEqualE extends PE
     public Object clone()
     {
         return new AEqualE(
-            cloneNode(this._p_),
+            cloneNode(this._e_),
             cloneNode(this._equal_),
-            cloneNode(this._e_));
+            cloneNode(this._p_));
     }
 
     @Override
     public void apply(Switch sw)
     {
         ((Analysis) sw).caseAEqualE(this);
-    }
-
-    public PP getP()
-    {
-        return this._p_;
-    }
-
-    public void setP(PP node)
-    {
-        if(this._p_ != null)
-        {
-            this._p_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._p_ = node;
-    }
-
-    public TEqual getEqual()
-    {
-        return this._equal_;
-    }
-
-    public void setEqual(TEqual node)
-    {
-        if(this._equal_ != null)
-        {
-            this._equal_.parent(null);
-        }
-
-        if(node != null)
-        {
-            if(node.parent() != null)
-            {
-                node.parent().removeChild(node);
-            }
-
-            node.parent(this);
-        }
-
-        this._equal_ = node;
     }
 
     public PE getE()
@@ -120,22 +70,72 @@ public final class AEqualE extends PE
         this._e_ = node;
     }
 
+    public TEqual getEqual()
+    {
+        return this._equal_;
+    }
+
+    public void setEqual(TEqual node)
+    {
+        if(this._equal_ != null)
+        {
+            this._equal_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._equal_ = node;
+    }
+
+    public PP getP()
+    {
+        return this._p_;
+    }
+
+    public void setP(PP node)
+    {
+        if(this._p_ != null)
+        {
+            this._p_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._p_ = node;
+    }
+
     @Override
     public String toString()
     {
         return ""
-            + toString(this._p_)
+            + toString(this._e_)
             + toString(this._equal_)
-            + toString(this._e_);
+            + toString(this._p_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._p_ == child)
+        if(this._e_ == child)
         {
-            this._p_ = null;
+            this._e_ = null;
             return;
         }
 
@@ -145,9 +145,9 @@ public final class AEqualE extends PE
             return;
         }
 
-        if(this._e_ == child)
+        if(this._p_ == child)
         {
-            this._e_ = null;
+            this._p_ = null;
             return;
         }
 
@@ -158,9 +158,9 @@ public final class AEqualE extends PE
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._p_ == oldChild)
+        if(this._e_ == oldChild)
         {
-            setP((PP) newChild);
+            setE((PE) newChild);
             return;
         }
 
@@ -170,9 +170,9 @@ public final class AEqualE extends PE
             return;
         }
 
-        if(this._e_ == oldChild)
+        if(this._p_ == oldChild)
         {
-            setE((PE) newChild);
+            setP((PP) newChild);
             return;
         }
 

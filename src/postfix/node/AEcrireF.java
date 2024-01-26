@@ -5,56 +5,61 @@ package postfix.node;
 import postfix.analysis.*;
 
 @SuppressWarnings("nls")
-public final class ARestelistedeexpressionListeexpbis extends PListeexpbis
+public final class AEcrireF extends PF
 {
-    private TVirgule _virgule_;
+    private TEcrire _ecrire_;
+    private TLPar _lPar_;
     private PS _s_;
-    private PListeexpbis _listeexpbis_;
+    private TRPar _rPar_;
 
-    public ARestelistedeexpressionListeexpbis()
+    public AEcrireF()
     {
         // Constructor
     }
 
-    public ARestelistedeexpressionListeexpbis(
-        @SuppressWarnings("hiding") TVirgule _virgule_,
+    public AEcrireF(
+        @SuppressWarnings("hiding") TEcrire _ecrire_,
+        @SuppressWarnings("hiding") TLPar _lPar_,
         @SuppressWarnings("hiding") PS _s_,
-        @SuppressWarnings("hiding") PListeexpbis _listeexpbis_)
+        @SuppressWarnings("hiding") TRPar _rPar_)
     {
         // Constructor
-        setVirgule(_virgule_);
+        setEcrire(_ecrire_);
+
+        setLPar(_lPar_);
 
         setS(_s_);
 
-        setListeexpbis(_listeexpbis_);
+        setRPar(_rPar_);
 
     }
 
     @Override
     public Object clone()
     {
-        return new ARestelistedeexpressionListeexpbis(
-            cloneNode(this._virgule_),
+        return new AEcrireF(
+            cloneNode(this._ecrire_),
+            cloneNode(this._lPar_),
             cloneNode(this._s_),
-            cloneNode(this._listeexpbis_));
+            cloneNode(this._rPar_));
     }
 
     @Override
     public void apply(Switch sw)
     {
-        ((Analysis) sw).caseARestelistedeexpressionListeexpbis(this);
+        ((Analysis) sw).caseAEcrireF(this);
     }
 
-    public TVirgule getVirgule()
+    public TEcrire getEcrire()
     {
-        return this._virgule_;
+        return this._ecrire_;
     }
 
-    public void setVirgule(TVirgule node)
+    public void setEcrire(TEcrire node)
     {
-        if(this._virgule_ != null)
+        if(this._ecrire_ != null)
         {
-            this._virgule_.parent(null);
+            this._ecrire_.parent(null);
         }
 
         if(node != null)
@@ -67,7 +72,32 @@ public final class ARestelistedeexpressionListeexpbis extends PListeexpbis
             node.parent(this);
         }
 
-        this._virgule_ = node;
+        this._ecrire_ = node;
+    }
+
+    public TLPar getLPar()
+    {
+        return this._lPar_;
+    }
+
+    public void setLPar(TLPar node)
+    {
+        if(this._lPar_ != null)
+        {
+            this._lPar_.parent(null);
+        }
+
+        if(node != null)
+        {
+            if(node.parent() != null)
+            {
+                node.parent().removeChild(node);
+            }
+
+            node.parent(this);
+        }
+
+        this._lPar_ = node;
     }
 
     public PS getS()
@@ -95,16 +125,16 @@ public final class ARestelistedeexpressionListeexpbis extends PListeexpbis
         this._s_ = node;
     }
 
-    public PListeexpbis getListeexpbis()
+    public TRPar getRPar()
     {
-        return this._listeexpbis_;
+        return this._rPar_;
     }
 
-    public void setListeexpbis(PListeexpbis node)
+    public void setRPar(TRPar node)
     {
-        if(this._listeexpbis_ != null)
+        if(this._rPar_ != null)
         {
-            this._listeexpbis_.parent(null);
+            this._rPar_.parent(null);
         }
 
         if(node != null)
@@ -117,25 +147,32 @@ public final class ARestelistedeexpressionListeexpbis extends PListeexpbis
             node.parent(this);
         }
 
-        this._listeexpbis_ = node;
+        this._rPar_ = node;
     }
 
     @Override
     public String toString()
     {
         return ""
-            + toString(this._virgule_)
+            + toString(this._ecrire_)
+            + toString(this._lPar_)
             + toString(this._s_)
-            + toString(this._listeexpbis_);
+            + toString(this._rPar_);
     }
 
     @Override
     void removeChild(@SuppressWarnings("unused") Node child)
     {
         // Remove child
-        if(this._virgule_ == child)
+        if(this._ecrire_ == child)
         {
-            this._virgule_ = null;
+            this._ecrire_ = null;
+            return;
+        }
+
+        if(this._lPar_ == child)
+        {
+            this._lPar_ = null;
             return;
         }
 
@@ -145,9 +182,9 @@ public final class ARestelistedeexpressionListeexpbis extends PListeexpbis
             return;
         }
 
-        if(this._listeexpbis_ == child)
+        if(this._rPar_ == child)
         {
-            this._listeexpbis_ = null;
+            this._rPar_ = null;
             return;
         }
 
@@ -158,9 +195,15 @@ public final class ARestelistedeexpressionListeexpbis extends PListeexpbis
     void replaceChild(@SuppressWarnings("unused") Node oldChild, @SuppressWarnings("unused") Node newChild)
     {
         // Replace child
-        if(this._virgule_ == oldChild)
+        if(this._ecrire_ == oldChild)
         {
-            setVirgule((TVirgule) newChild);
+            setEcrire((TEcrire) newChild);
+            return;
+        }
+
+        if(this._lPar_ == oldChild)
+        {
+            setLPar((TLPar) newChild);
             return;
         }
 
@@ -170,9 +213,9 @@ public final class ARestelistedeexpressionListeexpbis extends PListeexpbis
             return;
         }
 
-        if(this._listeexpbis_ == oldChild)
+        if(this._rPar_ == oldChild)
         {
-            setListeexpbis((PListeexpbis) newChild);
+            setRPar((TRPar) newChild);
             return;
         }
 
