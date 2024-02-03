@@ -34,7 +34,7 @@ public class Compiler
 
 		System.out.println("[BUILD SA] ");
 		buildSa();
-/*
+		/*
 		System.out.println("[BUILD TS] ");
 		buildTs();
 		System.out.println("[TYPE CHECKING]");
