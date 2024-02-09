@@ -207,7 +207,6 @@ public class Sc2sa extends DepthFirstAdapter
         inANumberExp6(node);
         this.returnValue = new SaExpInt(Integer.parseInt(node.getNumber().getText()));
         outANumberExp6(node);
-        // Crée un nœud SaExpInt avec la valeur du nombre
     }
     //{vrai} vrai
     @Override
