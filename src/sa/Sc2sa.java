@@ -13,12 +13,12 @@ public class Sc2sa extends DepthFirstAdapter
 
     public void defaultIn(@SuppressWarnings("unused") Node node)
     {
-	    //System.out.println("<" + node.getClass().getSimpleName() + ">");
+	    System.out.println("<" + node.getClass().getSimpleName() + ">");
     }
 
     public void defaultOut(@SuppressWarnings("unused") Node node)
     {
-	    //System.out.println("</" + node.getClass().getSimpleName() + ">");
+	    System.out.println("</" + node.getClass().getSimpleName() + ">");
     }
     
     public SaProg getRoot()
@@ -300,7 +300,7 @@ public class Sc2sa extends DepthFirstAdapter
         SaInstBloc thenBranch = (SaInstBloc) this.returnValue;
         this.returnValue = new SaInstSi(condition, thenBranch,null);
         outASiInstr(node);
-        // Assurez-vous d'adapter le constructeur SaInstSi en fonction de votre AST
+        // Assurez d'adapter le constructeur SaInstSi en fonction de  AST
     }
     //    {sinon} si exp alors thenbranch sinon elsebranch |
     @Override
@@ -481,11 +481,11 @@ public class Sc2sa extends DepthFirstAdapter
 
         node.getVariablefonc().apply(this);
         SaLDecVar listeVariables = (SaLDecVar) this.returnValue;
-        node.getInstrbloc().apply(this);
-        SaInstBloc bloc = (SaInstBloc) this.returnValue;
         node.getOpttype().apply(this);
         Type returnType = this.returnType;
         String functionName = node.getIdentif().getText();
+        node.getInstrbloc().apply(this);
+        SaInstBloc bloc = (SaInstBloc) this.returnValue;
         this.returnValue = new SaDecFonc(functionName,returnType,listeParametres,listeVariables,bloc);
         outADeclarationfonctionDecfonc(node);
     }

@@ -102,11 +102,12 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
             context=Context.PARAM;
             node.getParametres().accept(this);
         }
-
-        if (node.getCorps() != null){
+        SaInstBloc bloc = new SaInstBloc(null);
+        if (!node.getCorps().toString().equals(bloc.toString())){
             context=Context.LOCAL;
             node.getCorps().accept(this);
         }
+        context=Context.GLOBAL;
         defaultOut(node);
 
 
@@ -120,16 +121,13 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
         if (tableGlobale.getVar(node.getNom()) != null) {
             throw new ErrorException(Error.TS, "Array already defined in global scope");
         }
-        System.out.println(node.getTaille());
         if (node.getTaille() == 0){
             throw new ErrorException(Error.TS,"array size must be more than 0");
         }
-        System.out.println(node.getType());
         if (node.getType() == null){
             throw new ErrorException(Error.TS,"array must have type");
         }
         tableGlobale.addTab(node.getNom(),node.getType(),node.getTaille());
-        System.out.println(tableGlobale.variables);
         node.tsItem=tableGlobale.getVar(node.getNom());
 
         /*else if (context == Context.LOCAL) {
@@ -152,18 +150,13 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
     public Void visit(SaAppel node) throws Exception {
         defaultIn(node);
         TsItemFct itemFct = tableGlobale.getFct(node.getNom());
-        System.out.println(tableGlobale.fonctions);
         if (itemFct == null) {
             throw new ErrorException(Error.TS, "Function " + node.getNom() + " not defined");
         }
-        System.out.println(tableGlobale.fonctions);
         if (node.getArguments() == null){
             if (itemFct.getNbArgs() != 0) throw new ErrorException(Error.TS, "Function" + node.getNom() + "need arguments");
-            System.out.println(tableGlobale.fonctions);
         }
-        System.out.println(node.getArguments()+"test ");
         if (node.getArguments() != null){
-            System.out.println(node.getArguments()+"test ");
             if (itemFct.getNbArgs() == 0) throw new ErrorException(Error.TS, "Function" + node.getNom() + "does not need arguments");
             if (itemFct.getNbArgs() != node.getArguments().length()) {
                 throw new ErrorException(Error.TS, "Function " + node.getNom() + " called with wrong number of arguments");
@@ -187,9 +180,7 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
         defaultIn(node);
 
         if (context == Context.GLOBAL){
-            System.out.println("000000000000000000000000000000000000000000");
             TsItemVar tsItemVar =  tableGlobale.getVar(node.getNom());
-            System.out.println("000000000000000000000000000000000000000000"+node.getTsItem().getTaille());
             if (tsItemVar == null){
                 throw new ErrorException(Error.TS, "Variable " + node.getNom() + " not defined");
             }
@@ -228,29 +219,11 @@ public class Sa2ts extends SaDepthFirstVisitor <Void> {
                 }
             }
         }
-        System.out.println("000000000000000000000000000000000000000000");
         if (tableLocaleCourante.getVar(node.getNom()) != null) {
             node.tsItem= (TsItemVarSimple) tableLocaleCourante.getVar(node.getNom());
         }else if (tableGlobale.getVar(node.getNom()) != null){
             node.tsItem= (TsItemVarSimple) tableGlobale.getVar(node.getNom());
         }
-
-        //node.tsItem = (TsItemVarSimple) tableLocaleCourante.getVar(node.getNom());
-        /*if (context == Context.LOCAL){
-            if (tableLocaleCourante.getVar(node.getNom()) == null && tableGlobale.getVar(node.getNom()) == null){
-                throw new ErrorException(Error.TS, "Variable " + node.getNom() + " not defined");
-            }else{
-                if (tableGlobale.getVar(node.getNom()).getTaille() >1){
-                    throw new ErrorException(Error.TS,"the variables"+node.getNom()+" cannot be indexed");
-                }
-                if (tableLocaleCourante.getVar(node.getNom()).getTaille() >1){
-                    throw new ErrorException(Error.TS,"the variables"+node.getNom()+" cannot be indexed");
-                }
-            }
-        }*/
-
-        //node.tsItem = (TsItemVarSimple) tableGlobale.getVar(node.getNom());
-        //node.tsItem = (TsItemVarSimple) tableLocaleCourante.getVar(node.getNom());
 
         return null;
     }
