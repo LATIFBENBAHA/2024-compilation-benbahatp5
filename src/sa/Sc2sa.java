@@ -433,7 +433,7 @@ public class Sc2sa extends DepthFirstAdapter
         outABoolType(node);
     }
     //bool = {vrai} vrai |
-    @Override
+   /* @Override
     public void caseAVraiBool(AVraiBool node) {
         inAVraiBool(node);
         this.returnValue = new SaExpVrai();
@@ -445,7 +445,7 @@ public class Sc2sa extends DepthFirstAdapter
         inAFauxBool(node);
         this.returnValue = new SaExpFaux();
         outAFauxBool(node);
-    }
+    }*/
     //decvar = {declarationvar} type identif |
     @Override
     public void caseADeclarationvarDecvar(ADeclarationvarDecvar node) {
