@@ -19,12 +19,12 @@ public class SaTypeCheck extends SaDepthFirstVisitor <Void>{
 
     public void defaultIn(SaNode node)
     {
-		//			System.out.println("<" + node.getClass().getSimpleName() + ">");
+					System.out.println("<" + node.getClass().getSimpleName() + ">");
     }
 
     public void defaultOut(SaNode node)
     {
-		//		System.out.println("</" + node.getClass().getSimpleName() + ">");
+				System.out.println("</" + node.getClass().getSimpleName() + ">");
     }
 
 
