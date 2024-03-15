@@ -39,10 +39,11 @@ public class Compiler
 		buildTs();
 		/*
 		System.out.println("[TYPE CHECKING]");
-		typeCheck();
-		/*
+		typeCheck();*/
+
 		System.out.println("[BUILD C3A] ");
 		buildC3a();
+		/*
 		System.out.println("[BUILD PRE NASM] ");
 		buildPreNasm();
 		System.out.println("[BUILD FLOW GRAPH] ");
