@@ -434,7 +434,9 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
     public C3aOperand visit(SaInstAffect node) throws Exception {
         defaultIn(node);
         C3aOperand var = node.getLhs().accept(this);
+        System.out.println(var);
         C3aOperand exp = node.getRhs().accept(this);
+        System.out.println(exp);
         c3a.ajouteInst(new C3aInstAffect(exp, var, ""));
         defaultOut(node);
         return null;
@@ -497,6 +499,16 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
         defaultOut(node);
         return null;
     }
+    @Override
+    public C3aOperand visit(SaVarSimple node) throws Exception {
+        defaultIn(node);
+        // Récupérer l'élément dans la table des symboles
+        TsItemVar tsItemVar = (TsItemVar) node.tsItem;
+        C3aOperand result = new C3aVar(tsItemVar, null);
+        defaultOut(node);
+        return result;
+    }
+
 
 
 }
