@@ -27,7 +27,9 @@ public class Compiler
 	private static Ig interferenceGraph = null;
 
 
-	public static void main(String[] args) {
+	public static void main(String[] args) {/*
+		System.out.println("[TYPE CHECKING]");
+		typeCheck();*/
 		processCommandLine(args);
 		System.out.println("[BUILD SC] ");
 		buildSc();
@@ -37,9 +39,7 @@ public class Compiler
 
 		System.out.println("[BUILD TS] ");
 		buildTs();
-		/*
-		System.out.println("[TYPE CHECKING]");
-		typeCheck();*/
+
 
 		System.out.println("[BUILD C3A] ");
 		buildC3a();

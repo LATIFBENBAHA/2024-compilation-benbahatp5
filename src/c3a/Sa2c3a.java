@@ -7,13 +7,15 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
     private C3a c3a;
     int indentation;
     public C3a getC3a(){return this.c3a;}
-    
+
     public Sa2c3a(SaNode root, Ts tableGlobale){
 	c3a = new C3a();
 	C3aTemp result = c3a.newTemp();
-	C3aFunction fct = new C3aFunction(tableGlobale.getFct("main"));
-	c3a.ajouteInst(new C3aInstCall(fct, result, ""));
+    C3aFunction fct = new C3aFunction(tableGlobale.getFct("main"));
+    c3a.ajouteInst(new C3aInstCall(fct, result, ""));
+    System.out.println(new C3aInstCall(fct, result, ""));
 	c3a.ajouteInst(new C3aInstStop(result, ""));
+    System.out.println(new C3aInstStop(result, ""));
 	indentation = 0;
     }
 
@@ -30,10 +32,10 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
 		for(int i = 0; i < indentation; i++){System.out.print(" ");}
 		System.out.println("</" + node.getClass().getSimpleName() + ">");
     }
-    
+
 
     // EXP -> op2 EXP EXP
-    public C3aOperand visit(SaExpAdd node) throws Exception
+    /*public C3aOperand visit(SaExpAdd node) throws Exception
     {
 	defaultIn(node);
 	C3aOperand op1 = node.getOp1().accept(this);
@@ -179,4 +181,323 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
         defaultOut(node);
         return result;
     }
+
+    // Méthode pour le traitement des noeuds SaExpLire
+    @Override
+    public C3aOperand visit(SaExpLire node) throws Exception {
+        defaultIn(node);
+        C3aOperand result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstRead(result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    // Méthode pour le traitement des noeuds SaExpEntier
+    @Override
+    public C3aOperand visit(SaExpInt node) throws Exception {
+        defaultIn(node);
+        C3aConstant result = new C3aConstant(node.getVal());
+        defaultOut(node);
+        return result;
+    }
+
+    // Méthode pour le traitement des noeuds SaExpAppel
+    @Override
+    public C3aOperand visit(SaAppel node) throws Exception {
+        defaultIn(node);
+        System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
+        SaLExp argsList = node.getArguments();
+        while (argsList != null) {
+            SaExp arg = argsList.getTete();
+            C3aOperand argOperand = arg.accept(this);
+            c3a.ajouteInst(new C3aInstParam(argOperand, ""));
+            argsList = argsList.getQueue();
+        }
+        C3aFunction function = new C3aFunction(node.tsItem);
+        C3aTemp result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstCall(function, result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    // Méthode pour le traitement des noeuds SaVarSimple
+   /* @Override
+    public C3aOperand visit(SaVarSimple node) throws Exception {
+        defaultIn(node);
+        C3aOperand result = node.getTsItem().get;
+        defaultOut(node);
+        return result;
+    }*/
+
+    // Méthode pour le traitement des noeuds SaVarIndicee
+    /*@Override
+    public C3aOperand visit(SaVarIndicee node) throws Exception {
+        defaultIn(node);
+        C3aOperand indice = node.getIndice().accept(this);
+        C3aVar var = (C3aVar) node.tsItem;
+        C3aTemp result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstAffect(var, indice, result, ""));
+        defaultOut(node);
+        return result;
+    }*/
+
+    // Méthode pour le traitement des noeuds SaExpVar
+    /*@Override
+    public C3aOperand visit(SaExpVar node) throws Exception {
+        defaultIn(node);
+        C3aOperand result = node.getVar().accept(this);
+        defaultOut(node);
+        return result;
+    }*/
+
+    @Override
+    public C3aOperand visit(SaExpAdd node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand op2 = node.getOp2().accept(this);
+        C3aOperand result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstAdd(op1, op2, result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpSub node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand op2 = node.getOp2().accept(this);
+        C3aOperand result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstSub(op1, op2, result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpMult node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand op2 = node.getOp2().accept(this);
+        C3aOperand result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstMult(op1, op2, result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpDiv node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand op2 = node.getOp2().accept(this);
+        C3aOperand result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstDiv(op1, op2, result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpEqual node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand op2 = node.getOp2().accept(this);
+        C3aOperand result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstJumpIfEqual(op1, op2, result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpInf node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand op2 = node.getOp2().accept(this);
+        C3aOperand result = c3a.newTemp();
+        c3a.ajouteInst(new C3aInstJumpIfLess(op1, op2, result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpOr node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand op2 = node.getOp2().accept(this);
+        C3aOperand result = c3a.newTemp();
+        C3aLabel label = c3a.newAutoLabel();
+        C3aLabel endLabel = c3a.newAutoLabel();
+        c3a.ajouteInst(new C3aInstJumpIfNotEqual(op1, c3a.False, label, ""));
+        c3a.ajouteInst(new C3aInstJumpIfNotEqual(op2, c3a.False, label, ""));
+        c3a.ajouteInst(new C3aInstAffect(c3a.False, result, ""));
+        c3a.ajouteInst(new C3aInstJump(endLabel, ""));
+        c3a.addLabelToNextInst(label);
+        c3a.ajouteInst(new C3aInstAffect(c3a.True, result, ""));
+        c3a.addLabelToNextInst(endLabel);
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpAnd node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand op2 = node.getOp2().accept(this);
+        C3aOperand result = c3a.newTemp();
+        C3aLabel label = c3a.newAutoLabel();
+        C3aLabel endLabel = c3a.newAutoLabel();
+        c3a.ajouteInst(new C3aInstJumpIfEqual(op1, c3a.False, label, ""));
+        c3a.ajouteInst(new C3aInstJumpIfEqual(op2, c3a.False, label, ""));
+        c3a.ajouteInst(new C3aInstAffect(c3a.True, result, ""));
+        c3a.ajouteInst(new C3aInstJump(endLabel, ""));
+        c3a.addLabelToNextInst(label);
+        c3a.ajouteInst(new C3aInstAffect(c3a.False, result, ""));
+        c3a.addLabelToNextInst(endLabel);
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpNot node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getOp1().accept(this);
+        C3aOperand result = c3a.newTemp();
+        C3aLabel nextLabel = c3a.newAutoLabel();
+        c3a.ajouteInst(new C3aInstJumpIfEqual(op1, c3a.False, nextLabel, ""));
+        c3a.ajouteInst(new C3aInstAffect(c3a.False, result, ""));
+        C3aLabel endLabel = c3a.newAutoLabel();
+        c3a.ajouteInst(new C3aInstJump(endLabel, ""));
+        c3a.addLabelToNextInst(nextLabel);
+        c3a.ajouteInst(new C3aInstAffect(c3a.True, result, ""));
+        c3a.addLabelToNextInst(endLabel);
+        defaultOut(node);
+        return result;
+    }
+
+    // Méthode pour le traitement des noeuds SaExpEntier
+    @Override
+    public C3aOperand visit(SaExpInt node) throws Exception {
+        defaultIn(node);
+        C3aConstant result = new C3aConstant(node.getVal());
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpVar node) throws Exception {
+        defaultIn(node);
+        C3aOperand result = new C3aVar(node.getVar().getTsItem(), null);
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaExpAppel node) throws Exception {
+        defaultIn(node);
+        C3aOperand result = c3a.newTemp();
+        C3aFunction function = new C3aFunction(node.getVal().tsItem);
+        c3a.ajouteInst(new C3aInstCall(function, result, ""));
+        defaultOut(node);
+        return result;
+    }
+
+    @Override
+    public C3aOperand visit(SaInstEcriture node) throws Exception {
+        defaultIn(node);
+        C3aOperand op1 = node.getArg().accept(this);
+        c3a.ajouteInst(new C3aInstWrite(op1, ""));
+        defaultOut(node);
+        return null;
+    }
+
+    @Override
+    public C3aOperand visit(SaInstTantQue node) throws Exception {
+        defaultIn(node);
+        C3aLabel testLabel = c3a.newAutoLabel();
+        C3aLabel endLabel = c3a.newAutoLabel();
+        c3a.addLabelToNextInst(testLabel);
+        C3aOperand test = node.getTest().accept(this);
+        c3a.ajouteInst(new C3aInstJumpIfEqual(test, c3a.False, endLabel, ""));
+        node.getFaire().accept(this);
+        c3a.ajouteInst(new C3aInstJump(testLabel, ""));
+        c3a.addLabelToNextInst(endLabel);
+        defaultOut(node);
+        return null;
+    }
+
+    @Override
+    public C3aOperand visit(SaInstBloc node) throws Exception {
+        defaultIn(node);
+        node.getVal().accept(this);
+        defaultOut(node);
+        return null;
+    }
+
+    @Override
+    public C3aOperand visit(SaInstAffect node) throws Exception {
+        defaultIn(node);
+        C3aOperand var = node.getLhs().accept(this);
+        C3aOperand exp = node.getRhs().accept(this);
+        c3a.ajouteInst(new C3aInstAffect(exp, var, ""));
+        defaultOut(node);
+        return null;
+    }
+
+    @Override
+    public C3aOperand visit(SaInstSi node) throws Exception {
+        defaultIn(node);
+        C3aLabel elseLabel = c3a.newAutoLabel();
+        C3aLabel endLabel = c3a.newAutoLabel();
+        C3aOperand condition = node.getTest().accept(this);
+        c3a.ajouteInst(new C3aInstJumpIfEqual(condition, c3a.False, elseLabel, ""));
+        node.getAlors().accept(this);
+        c3a.ajouteInst(new C3aInstJump(endLabel, ""));
+        c3a.addLabelToNextInst(elseLabel);
+        if (node.getSinon() != null) {
+            node.getSinon().accept(this);
+        }
+        c3a.addLabelToNextInst(endLabel);
+        defaultOut(node);
+        return null;
+    }
+
+    @Override
+    public C3aOperand visit(SaInstRetour node) throws Exception {
+        defaultIn(node);
+        C3aOperand returnValue = node.getVal().accept(this);
+        c3a.ajouteInst(new C3aInstReturn(returnValue, ""));
+        defaultOut(node);
+        return null;
+    }
+    @Override
+    public C3aOperand visit(SaDecFonc node) throws Exception {
+        defaultIn(node);
+        // Crée une nouvelle fonction C3a pour la fonction déclarée
+        //C3aFunction function = new C3aFunction(node.tsItem);
+        // Ajoute une instruction de début de fonction à C3a
+        c3a.ajouteInst(new C3aInstFBegin(node.tsItem, "entree fonction"));
+        // Visite les instructions du corps de la fonction
+        node.getCorps().accept(this);
+        // Ajoute une instruction de fin de fonction à C3a
+        c3a.ajouteInst(new C3aInstFEnd(""));
+        defaultOut(node);
+        return null;
+    }
+
+    @Override
+    public C3aOperand visit(SaLDecFonc node) throws Exception {
+        defaultIn(node);
+        node.length();
+        System.out.println(node.length());
+        // Visite chaque déclaration de fonction dans la liste
+        node.getTete().accept(this);
+        SaLDecFonc lfonc = node.getQueue();
+        while (lfonc != null) {
+            SaDecFonc fonc = lfonc.getTete();
+            fonc.accept(this);
+            lfonc = lfonc.getQueue();
+        }
+        defaultOut(node);
+        return null;
+    }
+
+
 }
+
