@@ -157,29 +157,6 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
 
         defaultOut(node);
         return result;
-    }
-
-    /// Méthode pour le traitement des noeuds SaExpNot
-    @Override
-    public C3aOperand visit(SaExpNot node) throws Exception {
-        defaultIn(node);
-        C3aOperand op1 = node.getOp1().accept(this);
-        C3aOperand result = c3a.newTemp();
-
-        // Créer une étiquette pour la prochaine instruction
-        C3aLabel nextLabel = c3a.newAutoLabel();
-
-        // Si op1 est égal à False, alors le résultat est True ; sinon, le résultat est False
-        c3a.ajouteInst(new C3aInstJumpIfEqual(op1, c3a.False, nextLabel, ""));
-        c3a.ajouteInst(new C3aInstAffect(c3a.False, result, ""));
-        C3aLabel endLabel = c3a.newAutoLabel();
-        c3a.ajouteInst(new C3aInstJump(endLabel, ""));
-        c3a.addLabelToNextInst(nextLabel);
-        c3a.ajouteInst(new C3aInstAffect(c3a.True, result, ""));
-        c3a.addLabelToNextInst(endLabel);
-
-        defaultOut(node);
-        return result;
     }*/
 
     // Méthode pour le traitement des noeuds SaExpLire
@@ -204,7 +181,6 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
     @Override
     public C3aOperand visit(SaAppel node) throws Exception {
         defaultIn(node);
-        System.out.println("hhhhhhhhhhhhhhhhhhhhhhhhhhhhh");
         SaLExp argsList = node.getArguments();
 
         if (argsList != null) {
@@ -224,28 +200,21 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
         defaultOut(node);
         return result;
     }
-
-
+    @Override
+    public C3aOperand visit(SaLExp node) throws Exception {
+        defaultIn(node);
+        defaultOut(node);
+        return super.visit(node);
+    }
     // Méthode pour le traitement des noeuds SaVarIndicee
-    /*@Override
+    @Override
     public C3aOperand visit(SaVarIndicee node) throws Exception {
         defaultIn(node);
-        C3aOperand indice = node.getIndice().accept(this);
-        C3aVar var = (C3aVar) node.tsItem;
-        C3aTemp result = c3a.newTemp();
-        c3a.ajouteInst(new C3aInstAffect(var, indice, result, ""));
+        C3aOperand indice = new C3aVar(node.getTsItem(),node.getIndice().accept(this));
         defaultOut(node);
-        return result;
-    }*/
+        return indice;
+    }
 
-    // Méthode pour le traitement des noeuds SaExpVar
-    /*@Override
-    public C3aOperand visit(SaExpVar node) throws Exception {
-        defaultIn(node);
-        C3aOperand result = node.getVar().accept(this);
-        defaultOut(node);
-        return result;
-    }*/
     @Override
     public C3aOperand visit(SaProg node) throws Exception{
         defaultIn(node);
