@@ -35,18 +35,6 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
 
 
     // EXP -> op2 EXP EXP
-    /*public C3aOperand visit(SaExpAdd node) throws Exception
-    {
-	defaultIn(node);
-	C3aOperand op1 = node.getOp1().accept(this);
-	C3aOperand op2 = node.getOp2().accept(this);
-	C3aOperand result = c3a.newTemp();
-
-	c3a.ajouteInst(new C3aInstAdd(op1, op2, result, ""));
-	defaultOut(node);
-	return result;
-    }
-    */
 
     // Méthode pour le traitement des noeuds SaExpLire
     @Override
@@ -61,6 +49,7 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
     @Override
     public C3aOperand visit(SaAppel node) throws Exception {
         defaultIn(node);
+        C3aTemp result = c3a.newTemp();
         if (node.getArguments() != null) {
             SaLExp argslist = node.getArguments();
             for (int i = 0; i < node.getArguments().length(); i++) {
@@ -72,7 +61,6 @@ public class Sa2c3a extends SaDepthFirstVisitor <C3aOperand> {
                 argslist = argslist.getQueue();
             }
         }
-        C3aTemp result = c3a.newTemp();
         c3a.ajouteInst(new C3aInstCall(new C3aFunction(node.tsItem), result, ""));
         defaultOut(node);
         return result;
